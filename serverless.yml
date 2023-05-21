@@ -1,0 +1,24 @@
+service: aws-python-project
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.9
+  lambdaHashingVersion: 20201221
+  region: ap-northeast-1
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi: "*"
+    layers:
+      - { Ref: PythonRequirementsLambdaLayer }
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    layer: true
